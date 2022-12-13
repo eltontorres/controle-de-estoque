@@ -39,7 +39,7 @@ def remover_produto(codigo):
     banco.commit()
     banco.close
 
-def atualizar_estoque(codigo, atualizar_local, atualizar_novo_valor):
+def atualizar_estoque(codigo, atualizar_local: str, atualizar_novo_valor: str):
     """  
     Atualiza uma determinada informação do produto
 
@@ -53,7 +53,7 @@ def atualizar_estoque(codigo, atualizar_local, atualizar_novo_valor):
     """
     banco = sqlite3.connect('Supermercado.db')
     cursor = banco.cursor()
-    cursor.execute(f"UPDATE estoque SET {atualizar_local} = {atualizar_novo_valor} WHERE produto = '{codigo}' ")
+    cursor.execute(f"UPDATE estoque SET {atualizar_local} = {atualizar_novo_valor} WHERE codigo = {codigo}")
     banco.commit()
     banco.close()
 
@@ -84,3 +84,5 @@ def existCode(codigo):
     if row != []:
         return True
     return False 
+
+atualizar_estoque(20, 'data', 'teste')
