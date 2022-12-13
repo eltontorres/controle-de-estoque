@@ -20,7 +20,6 @@ def main(page: Page):
         return item_dict
     dict_db = [map_dict(item) for item in db]
 
-    print(dict_db)
     page.title = "Controle de Estoque"
 
     # definição das funções
@@ -149,16 +148,17 @@ def main(page: Page):
         selecteds.clear()
 
         list_item =[]
-        for item in table_prod.rows[0].cells:
+        for item in table_prod.rows[row_selected[0]].cells:
             list_item.append(item.content.value)
 
         item = map_dict(list_item)
+
         print(item)
 
         if table_prod.rows[row_selected[0]].cells[0].content.value != "":
             codigo = table_prod.rows[row_selected[0]].cells[0].content.value
             print(codigo, item['data'])
-            atualizar_estoque(codigo, 'data', table_prod.rows[row_selected[0]].cells[1].content.value)
+            atualizar_estoque(item['codigo'], 'data', table_prod.rows[row_selected[0]].cells[1].content.value)
             
             #item = map_dict(list_item)
         
