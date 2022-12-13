@@ -19,12 +19,9 @@ def adicionar_produto(novo_produto):
     """
     banco = sqlite3.connect('Supermercado.db')
     cursor = banco.cursor()
-    try:
-        cursor.execute(f"INSERT INTO estoque (data, produto, barra, descricao, custo, venda, quantidade) VALUES('{novo_produto['data']}', '{novo_produto['produto']}', '{novo_produto['barra']}', '{novo_produto['descricao']}', '{novo_produto['custo']}', '{novo_produto['venda']}','{novo_produto['quantidade']}' )")
-        banco.commit()
-        banco.close()
-    except sqlite3.IntegrityError:
-        return
+    cursor.execute(f"INSERT INTO estoque (data, produto, barra, descricao, custo, venda, quantidade) VALUES('{novo_produto['data']}', '{novo_produto['produto']}', '{novo_produto['barra']}', '{novo_produto['descricao']}', '{novo_produto['custo']}', '{novo_produto['venda']}','{novo_produto['quantidade']}' )")
+    banco.commit()
+    banco.close()
 
 def remover_produto(codigo):
     """ 
@@ -42,12 +39,12 @@ def remover_produto(codigo):
     banco.commit()
     banco.close
 
-def atualizar_estoque(produto, atualizar_local, atualizar_novo_valor):
+def atualizar_estoque(codigo, atualizar_local, atualizar_novo_valor):
     """  
     Atualiza uma determinada informação do produto
 
     Arguments:
-        produto: nome do produto que terá suas informações alteradas
+        codigo: codigo do produto que terá suas informações alteradas
         atualizar_local: nome do campo que ser atualizado (id, produto, preco ou quantidade)
         atualizar_novo_valor: valor que irá ser adicionado e substituir o antigo.
 
@@ -56,7 +53,7 @@ def atualizar_estoque(produto, atualizar_local, atualizar_novo_valor):
     """
     banco = sqlite3.connect('Supermercado.db')
     cursor = banco.cursor()
-    cursor.execute(f"UPDATE estoque SET {atualizar_local} = {atualizar_novo_valor} WHERE produto = '{produto}' ")
+    cursor.execute(f"UPDATE estoque SET {atualizar_local} = {atualizar_novo_valor} WHERE produto = '{codigo}' ")
     banco.commit()
     banco.close()
 
